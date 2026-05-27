@@ -1,0 +1,364 @@
+Prime Number Check and Table Program
+
+num = int(input("Enter a number: "))
+
+Prime number check
+if num > 1:
+is_prime = True
+
+for i in range(2, int(num ** 0.5) + 1):
+if num % i == 0:
+is_prime = False
+break
+
+if is_prime:
+print(num, "is Prime Number")
+else:
+print(num, "is Not Prime Number")
+
+else:
+print(num, "is Not Prime Number")
+
+Multiplication Table
+print("\nMultiplication Table:")
+
+for i in range(1, 11):
+print(num, "x", i, "=", num * i)
+
+
+#t222222uplelist
+
+def display_menu():
+print("\n--- MENU ---")
+print("1. Create Tuple")
+print("2. Display Tuple")
+print("3. Update Tuple")
+print("4. Delete Element")
+print("5. Exit")
+
+
+def main():
+
+my_tuple = ()
+
+while True:
+
+display_menu()
+
+choice = int(input("Enter choice: "))
+
+# CREATE
+if choice == 1:
+
+n = int(input("How many elements: "))
+
+temp = []
+
+for i in range(n):
+value = input("Enter element: ")
+temp.append(value)
+
+my_tuple = tuple(temp)
+
+print("Tuple Created:", my_tuple)
+
+# READ
+elif choice == 2:
+
+print("Current Tuple:", my_tuple)
+
+# UPDATE
+elif choice == 3:
+
+temp = list(my_tuple)
+
+index = int(input("Enter index: "))
+new_value = input("Enter new value: ")
+
+if index >= 0 and index < len(temp):
+
+temp[index] = new_value
+
+my_tuple = tuple(temp)
+
+print("Updated Tuple:", my_tuple)
+
+else:
+print("Invalid Index")
+
+# DELETE
+elif choice == 4:
+
+temp = list(my_tuple)
+
+value = input("Enter element to delete: ")
+
+if value in temp:
+
+temp.remove(value)
+
+my_tuple = tuple(temp)
+
+print("Tuple after delete:", my_tuple)
+
+else:
+print("Element not found")
+
+# EXIT
+elif choice == 5:
+
+print("Program Ended")
+break
+
+else:
+print("Invalid Choice")
+
+
+if name == "main":
+main()
+
+
+
+
+#3333file handling
+
+def menu():
+
+print("\n--- FILE MENU ---")
+print("1. Read File")
+print("2. Write File")
+print("3. Append File")
+print("4. Exit")
+
+
+def read_file():
+
+try:
+
+with open("practice.txt", "r") as file:
+
+data = file.read()
+
+print("\nFile Content:")
+print(data)
+
+except FileNotFoundError:
+
+print("File not found")
+
+
+def write_file():
+
+text = input("Enter text: ")
+
+with open("practice.txt", "w") as file:
+
+file.write(text + "\n")
+
+print("Data Written Successfully")
+
+
+def append_file():
+
+text = input("Enter text: ")
+
+with open("practice.txt", "a") as file:
+
+file.write(text + "\n")
+
+print("Data Appended Successfully")
+
+
+def main():
+
+while True:
+
+menu()
+
+choice = int(input("Enter choice: "))
+
+if choice == 1:
+read_file()
+
+elif choice == 2:
+write_file()
+
+elif choice == 3:
+append_file()
+
+elif choice == 4:
+print("Program Closed")
+break
+
+else:
+print("Invalid Choice")
+
+
+if name == "main":
+main()
+
+
+#444mysql
+
+SQL..
+CREATE DATABASE employee_db;
+
+USE employee_db;
+
+CREATE TABLE employees(
+id INT AUTO_INCREMENT PRIMARY KEY,
+name VARCHAR(100),
+age INT,
+department VARCHAR(100),
+salary FLOAT
+);
+
+...
+pip install mysql-connector-python
+.. 
+import mysql.connector
+
+
+def connect_db():
+
+return mysql.connector.connect(
+host="localhost",
+user="root",
+password="",
+database="employee_db"
+)
+
+
+def menu():
+
+print("\n--- EMPLOYEE MENU ---")
+print("1. Insert")
+print("2. View")
+print("3. Update")
+print("4. Delete")
+print("5. Exit")
+
+
+INSERT
+def insert_employee():
+
+name = input("Enter name: ")
+age = int(input("Enter age: "))
+dept = input("Enter department: ")
+salary = float(input("Enter salary: "))
+
+conn = connect_db()
+
+cursor = conn.cursor()
+
+query = """
+INSERT INTO employees(name, age, department, salary)
+VALUES(%s, %s, %s, %s)
+"""
+
+values = (name, age, dept, salary)
+
+cursor.execute(query, values)
+
+conn.commit()
+
+print("Employee Inserted")
+
+cursor.close()
+conn.close()
+
+
+VIEW
+def view_employee():
+
+conn = connect_db()
+
+cursor = conn.cursor()
+
+cursor.execute("SELECT * FROM employees")
+
+data = cursor.fetchall()
+
+for row in data:
+
+print(row)
+
+cursor.close()
+conn.close()
+
+
+UPDATE
+def update_employee():
+
+emp_id = int(input("Enter ID: "))
+
+new_salary = float(input("Enter new salary: "))
+
+conn = connect_db()
+
+cursor = conn.cursor()
+
+query = "UPDATE employees SET salary=%s WHERE id=%s"
+
+cursor.execute(query, (new_salary, emp_id))
+
+conn.commit()
+
+print("Updated Successfully")
+
+cursor.close()
+conn.close()
+
+
+DELETE
+def delete_employee():
+
+emp_id = int(input("Enter ID: "))
+
+conn = connect_db()
+
+cursor = conn.cursor()
+
+query = "DELETE FROM employees WHERE id=%s"
+
+cursor.execute(query, (emp_id,))
+
+conn.commit()
+
+print("Deleted Successfully")
+
+cursor.close()
+conn.close()
+
+
+def main():
+
+while True:
+
+menu()
+
+choice = int(input("Enter choice: "))
+
+if choice == 1:
+insert_employee()
+
+elif choice == 2:
+view_employee()
+
+elif choice == 3:
+update_employee()
+
+elif choice == 4:
+delete_employee()
+
+elif choice == 5:
+print("Program Closed")
+break
+
+else:
+print("Invalid Choice")
+
+
+if name == "main":
+main()
+
