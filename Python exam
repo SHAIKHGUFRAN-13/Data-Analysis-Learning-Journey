@@ -1,364 +1,259 @@
-Prime Number Check and Table Program
+1. Data Frame Operations
+Create DataFrame
+Add Row
+Add Column
+Delete Row/Column
+nrow(), ncol(), dim()
+rollno=c(1,2,3,4,5)
+name=c("A","B","C","D","E")
 
-num = int(input("Enter a number: "))
+df=data.frame(rollno,name)
 
-Prime number check
-if num > 1:
-is_prime = True
+print(df)
 
-for i in range(2, int(num ** 0.5) + 1):
-if num % i == 0:
-is_prime = False
-break
+# Add Row
+rbind(df,c(6,"F"))
 
-if is_prime:
-print(num, "is Prime Number")
-else:
-print(num, "is Not Prime Number")
+# Add Column
+new_df=cbind(df,marks=c(50,60,70,80,90))
+print(new_df)
 
-else:
-print(num, "is Not Prime Number")
+# Delete First Row
+df[-1,]
 
-Multiplication Table
-print("\nMultiplication Table:")
+# Delete First Column
+df[,-1]
 
-for i in range(1, 11):
-print(num, "x", i, "=", num * i)
+nrow(df)
+ncol(df)
+dim(df)
 
 
-#t222222uplelist
+2. Missing Values (NA Handling)
 
-def display_menu():
-print("\n--- MENU ---")
-print("1. Create Tuple")
-print("2. Display Tuple")
-print("3. Update Tuple")
-print("4. Delete Element")
-print("5. Exit")
+Bahut Important
 
-
-def main():
-
-my_tuple = ()
-
-while True:
-
-display_menu()
-
-choice = int(input("Enter choice: "))
-
-# CREATE
-if choice == 1:
-
-n = int(input("How many elements: "))
-
-temp = []
-
-for i in range(n):
-value = input("Enter element: ")
-temp.append(value)
-
-my_tuple = tuple(temp)
-
-print("Tuple Created:", my_tuple)
-
-# READ
-elif choice == 2:
-
-print("Current Tuple:", my_tuple)
-
-# UPDATE
-elif choice == 3:
-
-temp = list(my_tuple)
-
-index = int(input("Enter index: "))
-new_value = input("Enter new value: ")
-
-if index >= 0 and index < len(temp):
-
-temp[index] = new_value
-
-my_tuple = tuple(temp)
-
-print("Updated Tuple:", my_tuple)
-
-else:
-print("Invalid Index")
-
-# DELETE
-elif choice == 4:
-
-temp = list(my_tuple)
-
-value = input("Enter element to delete: ")
-
-if value in temp:
-
-temp.remove(value)
-
-my_tuple = tuple(temp)
-
-print("Tuple after delete:", my_tuple)
-
-else:
-print("Element not found")
-
-# EXIT
-elif choice == 5:
-
-print("Program Ended")
-break
-
-else:
-print("Invalid Choice")
-
-
-if name == "main":
-main()
-
-
-
-
-#3333file handling
-
-def menu():
-
-print("\n--- FILE MENU ---")
-print("1. Read File")
-print("2. Write File")
-print("3. Append File")
-print("4. Exit")
-
-
-def read_file():
-
-try:
-
-with open("practice.txt", "r") as file:
-
-data = file.read()
-
-print("\nFile Content:")
-print(data)
-
-except FileNotFoundError:
-
-print("File not found")
-
-
-def write_file():
-
-text = input("Enter text: ")
-
-with open("practice.txt", "w") as file:
-
-file.write(text + "\n")
-
-print("Data Written Successfully")
-
-
-def append_file():
-
-text = input("Enter text: ")
-
-with open("practice.txt", "a") as file:
-
-file.write(text + "\n")
-
-print("Data Appended Successfully")
-
-
-def main():
-
-while True:
-
-menu()
-
-choice = int(input("Enter choice: "))
-
-if choice == 1:
-read_file()
-
-elif choice == 2:
-write_file()
-
-elif choice == 3:
-append_file()
-
-elif choice == 4:
-print("Program Closed")
-break
-
-else:
-print("Invalid Choice")
-
-
-if name == "main":
-main()
-
-
-#444mysql
-
-SQL..
-CREATE DATABASE employee_db;
-
-USE employee_db;
-
-CREATE TABLE employees(
-id INT AUTO_INCREMENT PRIMARY KEY,
-name VARCHAR(100),
-age INT,
-department VARCHAR(100),
-salary FLOAT
-);
-
-...
-pip install mysql-connector-python
-.. 
-import mysql.connector
-
-
-def connect_db():
-
-return mysql.connector.connect(
-host="localhost",
-user="root",
-password="",
-database="employee_db"
+data=data.frame(
+marks1=c(NA,22,NA,49,75),
+marks2=c(81,14,NA,61,12)
 )
 
+print(data)
 
-def menu():
+# Count NA
+sum(is.na(data))
 
-print("\n--- EMPLOYEE MENU ---")
-print("1. Insert")
-print("2. View")
-print("3. Update")
-print("4. Delete")
-print("5. Exit")
+# Remove NA
+na.omit(data)
 
+# Replace NA with Mean
+data$marks1[is.na(data$marks1)] =
+mean(data$marks1,na.rm=TRUE)
 
-INSERT
-def insert_employee():
-
-name = input("Enter name: ")
-age = int(input("Enter age: "))
-dept = input("Enter department: ")
-salary = float(input("Enter salary: "))
-
-conn = connect_db()
-
-cursor = conn.cursor()
-
-query = """
-INSERT INTO employees(name, age, department, salary)
-VALUES(%s, %s, %s, %s)
-"""
-
-values = (name, age, dept, salary)
-
-cursor.execute(query, values)
-
-conn.commit()
-
-print("Employee Inserted")
-
-cursor.close()
-conn.close()
+print(data)
 
 
-VIEW
-def view_employee():
+3. Normalization (Exam Favourite)
+Z-Score
+data=datasets::cars
 
-conn = connect_db()
+scale(data)
+Min-Max Normalization
+mtcars$mpg_norm=
+(mtcars$mpg-min(mtcars$mpg))/
+(max(mtcars$mpg)-min(mtcars$mpg))
 
-cursor = conn.cursor()
+mtcars$mpg_norm
 
-cursor.execute("SELECT * FROM employees")
+range(mtcars$mpg_norm)
+Decimal Scaling
+decimal_scale=function(x){
 
-data = cursor.fetchall()
+max_abs=max(abs(x))
 
-for row in data:
+power=ceiling(log10(max_abs))
 
-print(row)
+x/(10^power)
 
-cursor.close()
-conn.close()
+}
 
-
-UPDATE
-def update_employee():
-
-emp_id = int(input("Enter ID: "))
-
-new_salary = float(input("Enter new salary: "))
-
-conn = connect_db()
-
-cursor = conn.cursor()
-
-query = "UPDATE employees SET salary=%s WHERE id=%s"
-
-cursor.execute(query, (new_salary, emp_id))
-
-conn.commit()
-
-print("Updated Successfully")
-
-cursor.close()
-conn.close()
+decimal_scale(mtcars$mpg)
 
 
-DELETE
-def delete_employee():
+4. PCA (Very Very Important)
+data=datasets::iris
 
-emp_id = int(input("Enter ID: "))
+data=subset(data,select=-Species)
 
-conn = connect_db()
+pca=prcomp(data,
+           scale=TRUE,
+           center=TRUE)
 
-cursor = conn.cursor()
+summary(pca)
 
-query = "DELETE FROM employees WHERE id=%s"
+pca$rotation
 
-cursor.execute(query, (emp_id,))
+biplot(pca)
 
-conn.commit()
+pca.var=pca$sdev^2
 
-print("Deleted Successfully")
+propve=pca.var/sum(pca.var)
 
-cursor.close()
-conn.close()
+plot(propve,
+     type="b",
+     main="Scree Plot")
 
+plot(cumsum(propve),
+     type="b")
+Viva:
 
-def main():
+Prcomp kisliye use hota hai?
 
-while True:
-
-menu()
-
-choice = int(input("Enter choice: "))
-
-if choice == 1:
-insert_employee()
-
-elif choice == 2:
-view_employee()
-
-elif choice == 3:
-update_employee()
-
-elif choice == 4:
-delete_employee()
-
-elif choice == 5:
-print("Program Closed")
-break
-
-else:
-print("Invalid Choice")
+Ans:
+Dimension Reduction ke liye.
 
 
-if name == "main":
-main()
 
+5. Decision Tree (Most Asked)
+
+Examiner ka favourite.
+
+library(rpart)
+library(rpart.plot)
+
+data=iris
+
+sample_index=sample(150,100)
+
+training=data[sample_index,]
+
+testing=data[-sample_index,]
+
+dtm=rpart(
+Species~Sepal.Length+
+Sepal.Width+
+Petal.Length+
+Petal.Width,
+data=training,
+method="class"
+)
+
+plot(dtm)
+text(dtm)
+
+rpart.plot(dtm)
+
+pred=predict(
+dtm,
+testing,
+type="class"
+)
+
+table(testing[,5],pred)
+
+mean(testing[,5]==pred)
+
+
+6. Association Rule Mining (Apriori)
+Extremely Important
+library(arules)
+library(arulesViz)
+
+data("Groceries")
+
+rules=
+apriori(
+Groceries,
+parameter=list(
+supp=0.01,
+conf=0.2
+)
+)
+
+inspect(rules[1:10])
+
+itemFrequencyPlot(
+Groceries,
+topN=20,
+type="relative"
+)
+Viva:
+
+Apriori Algorithm kisliye use hota hai?
+
+Ans:
+Association Rules nikalne ke liye.
+
+
+
+7. Duplicate Handling
+x=datasets::chickwts
+
+duplicated(x)
+
+x[duplicated(x),]
+
+remove_dup=x[!duplicated(x),]
+
+remove_dup
+
+
+8. Factors
+var=c(
+"uzma",
+"uzma",
+"aayushi",
+"priya"
+)
+
+factor(var)
+
+
+9. Array / Vector
+Short Program
+array=c(
+"apple",
+"banana",
+"papaya",
+"berries"
+)
+
+array
+
+array[1]
+
+vector=c(1:10)
+
+length(vector)
+
+sort(vector)
+
+
+10. Outlier Detection (IQR Method)
+salary=c(
+50000,
+60000,
+55000,
+80000,
+40000,
+60000,
+70000
+)
+
+Q1=quantile(salary,0.25)
+
+Q3=quantile(salary,0.75)
+
+IQR=Q3-Q1
+
+lower=Q1-1.5*IQR
+
+upper=Q3+1.5*IQR
+
+outliers=
+salary[
+salary<lower |
+salary>upper
+]
+
+print(outliers)
